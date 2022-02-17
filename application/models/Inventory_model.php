@@ -31,6 +31,7 @@ class Inventory_model extends CI_Model
         $this->db->from('jadwal_kajian jk');
         $this->db->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left');
         $this->db->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left');
+        $this->db->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left');
         return $this->db->get();
     }
 

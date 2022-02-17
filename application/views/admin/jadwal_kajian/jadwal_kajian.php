@@ -3,7 +3,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="<?= base_url('admin/masjid/tambah') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah</a>
+        <a href="<?= base_url('admin/jadwal_kajian/tambah') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -28,7 +28,7 @@
                             <td><?= $no++ ?></td>
                             <td><?= $jk->nama_masjid ?></td>
                             <td><?= $jk->nama_ustad ?></td>
-                            <td><?= $jk->id_kajian ?></td>
+                            <td><?= $jk->judul_kajian ?></td>
                             <td><?= $jk->tanggal ?></td>
                             <td><?= $jk->waktu ?></td>
                             <td><?= $jk->keterangan ?></td>
