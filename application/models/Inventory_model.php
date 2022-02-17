@@ -25,30 +25,12 @@ class Inventory_model extends CI_Model
         $this->db->delete($table);
     }
 
-    public function barang_masuk()
+    public function get_jk()
     {
         $this->db->select('*');
-        $this->db->from('barang_masuk bm');
-        $this->db->join('tbl_barang b', 'b.id_barang = bm.id_barang', 'left');
-        $this->db->join('tbl_supplier s', 's.id_supplier = bm.id_supplier', 'left');
-        return $this->db->get();
-    }
-
-    public function barang_keluar()
-    {
-        $this->db->select('*');
-        $this->db->from('barang_keluar bm');
-        $this->db->join('tbl_barang b', 'b.id_barang = bm.id_barang', 'left');
-        $this->db->join('tbl_perusahaan p', 'p.id_perusahaan = bm.id_perusahaan', 'left');
-        return $this->db->get();
-    }
-
-    public function get_barang()
-    {
-        $this->db->select('*');
-        $this->db->from('tbl_barang b');
-        $this->db->join('tbl_kategori k', 'k.id_kategori = b.id_kategori', 'left');
-        $this->db->join('tbl_supplier s', 's.id_supplier = b.id_supplier', 'left');
+        $this->db->from('jadwal_kajian jk');
+        $this->db->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left');
+        $this->db->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left');
         return $this->db->get();
     }
 
