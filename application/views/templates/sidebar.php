@@ -18,7 +18,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?php if($this->uri->segment(2) == 'dashboard') echo 'active' ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'dashboard') echo 'active' ?>">
                 <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -27,25 +27,25 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item <?php if($this->uri->segment(2) == 'jadwal_kajian') echo 'active' ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'jadwal_kajian') echo 'active' ?>">
                 <a class="nav-link" href="<?= base_url('admin/jadwal_kajian') ?>">
                     <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Jadwal Kajian</span></a>
             </li>
 
-            <li class="nav-item <?php if($this->uri->segment(2) == 'ustad') echo 'active' ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'ustad') echo 'active' ?>">
                 <a class="nav-link" href="<?= base_url('admin/ustad') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Ustad</span></a>
             </li>
 
-            <li class="nav-item <?php if($this->uri->segment(2) == 'masjid') echo 'active' ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'masjid') echo 'active' ?>">
                 <a class="nav-link" href="<?= base_url('admin/masjid') ?>">
                     <i class="fas fa-fw fa-mosque"></i>
                     <span>Masjid</span></a>
             </li>
 
-            <li class="nav-item <?php if($this->uri->segment(2) == 'kajian') echo 'active' ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'kajian') echo 'active' ?>">
                 <a class="nav-link" href="<?= base_url('admin/kajian') ?>">
                     <i class="fas fa-fw fa-quran"></i>
                     <span>Kajian</span></a>
@@ -92,7 +92,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('username') ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets/template/') ?>img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->

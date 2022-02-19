@@ -55,8 +55,8 @@
                 </div>
                 <div class="form-group">
                     <label>Flyer Kajian</label>
-                    <input type="text" name="flyer_kajian" class="form-control" value="<?= $jk->flyer_kajian ?>">
-                    <?= form_error('flyer_kajian', '<div class="text-small text-danger">', '</div>') ?>
+                    <img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="60px">
+                    <input type="file" name="flyer_kajian" class="form-control">
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Simpan</button>

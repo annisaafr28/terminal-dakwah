@@ -41,6 +41,21 @@ class Jadwal_kajian extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->tambah();
         } else {
+            $flyer_kajian = $_FILES['flyer_kajian']['name'];
+            if ($flyer_kajian = '') {
+            } else {
+                $config['upload_path'] = './assets/foto';
+                $config['allowed_types'] = 'jpg|png|gif';
+
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('flyer_kajian')) {
+                    echo 'Upload Gagal!';
+                    die();
+                } else {
+                    $flyer_kajian = $this->upload->data('file_name');
+                }
+            }
+
             $data = array(
                 'id_masjid'   => $this->input->post('id_masjid'),
                 'id_ustad'        => $this->input->post('id_ustad'),
@@ -48,7 +63,7 @@ class Jadwal_kajian extends CI_Controller
                 'tanggal'      => $this->input->post('tanggal'),
                 'waktu'      => $this->input->post('waktu'),
                 'keterangan'      => $this->input->post('keterangan'),
-                'flyer_kajian'      => $this->input->post('flyer_kajian'),
+                'flyer_kajian'      => $flyer_kajian,
             );
 
             $this->inventory_model->insert_data($data, 'jadwal_kajian');
@@ -78,6 +93,21 @@ class Jadwal_kajian extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->tambah();
         } else {
+            $flyer_kajian = $_FILES['flyer_kajian']['name'];
+            if ($flyer_kajian) {
+                $config['upload_path'] = './assets/foto';
+                $config['allowed_types'] = 'jpg|png|gif';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('flyer_kajian')) {
+                    $flyer_kajian = $this->upload->data('file_name');
+                    $this->db->set('flyer_kajian', $flyer_kajian);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            }
+
             $data = array(
                 'id_masjid'   => $this->input->post('id_masjid'),
                 'id_ustad'        => $this->input->post('id_ustad'),
@@ -85,7 +115,6 @@ class Jadwal_kajian extends CI_Controller
                 'tanggal'      => $this->input->post('tanggal'),
                 'waktu'      => $this->input->post('waktu'),
                 'keterangan'      => $this->input->post('keterangan'),
-                'flyer_kajian'      => $this->input->post('flyer_kajian'),
             );
 
             $where = array(
@@ -106,7 +135,6 @@ class Jadwal_kajian extends CI_Controller
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
         $this->form_validation->set_rules('waktu', 'Waktu', 'required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
-        $this->form_validation->set_rules('flyer_kajian', 'Flyer Kajian', 'required');
     }
 
     public function delete_data($id)
