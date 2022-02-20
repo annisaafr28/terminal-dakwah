@@ -29,6 +29,7 @@ class Auth extends CI_Controller
                 $this->session->set_userdata('role', $cek->role);
                 $this->session->set_userdata('no_telp', $cek->no_telp);
                 $this->session->set_userdata('email', $cek->email);
+                $this->session->set_userdata('username', $cek->username);
                 $this->session->set_userdata('foto', $cek->foto);
                 switch ($cek->role) {
                     case 'admin':
