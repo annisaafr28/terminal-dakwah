@@ -20,12 +20,13 @@
                 <table class="table">
                     <tr>
                         <td>
-                            <select name="tanggal_kajian" id="tanggal_kajian" class="form-control">
+                            <!-- <select name="tanggal_kajian" id="tanggal_kajian" class="form-control">
                                 <option value="">Show All</option>
                                 <?php foreach ($jadwal_kajian as $kj) : ?>
                                     <option value="<?= $kj->tanggal ?>"><?= $kj->tanggal ?></option>
                                 <?php endforeach ?>
-                            </select>
+                            </select> -->
+                            <input type="date" id="tanggal_kajian" class="form-control">
                         </td>
                     </tr>
                 </table>
@@ -74,7 +75,7 @@
                 url: "<?= base_url('Homepage/load_kajian') ?>",
                 data: "tanggal=" + tanggal_kajian,
                 success: function(data){
-                    // $("#result_kajian tbody").html('<tr><td colspan="4" align="center">Tidak ada data</td></tr>')
+                    // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     console.log(data);
                     $("#result_kajian tbody").html(data);
                 }

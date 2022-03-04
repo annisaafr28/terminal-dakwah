@@ -20,17 +20,26 @@ class Homepage extends CI_Controller
     public function load_kajian()
     {
         $tanggal = $_GET['tanggal'];
-        $data = $this->db->get_where('jadwal_kajian', ['tanggal' => $tanggal])->result();
+        $data = $this->db->select('*')
+                         ->from('jadwal_kajian jk')
+                         ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
+                         ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
+                         ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
+                         ->where('tanggal', $tanggal)
+                         ->get()->result();
+        // $data = $this->db->get_where('jadwal_kajian', ['tanggal' => $tanggal])->result();
+        // $this->db->where('tanggal', $tanggal);
+        
         $no = 1; foreach ($data as $jk) : ?>
             <tr>
                 <td><?= $no++ ?></td>
-                <td><?= $jk->id_masjid ?></td>
-                <td><?= $jk->id_ustad ?></td>
-                <td><?= $jk->id_kajian ?></td>
+                <td><?= $jk->nama_masjid ?></td>
+                <td><?= $jk->nama_ustad ?></td>
+                <td><?= $jk->judul_kajian ?></td>
                 <td><?= $jk->tanggal ?></td>
                 <td><?= $jk->waktu ?></td>
                 <td><?= $jk->keterangan ?></td>
-                <td><?= $jk->flyer_kajian ?></td>
+                <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="60px"></td>
             </tr>
         <?php endforeach ?> <?php
     }
