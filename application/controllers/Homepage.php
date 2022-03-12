@@ -27,8 +27,6 @@ class Homepage extends CI_Controller
                          ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
                          ->where('tanggal', $tanggal)
                          ->get()->result();
-        // $data = $this->db->get_where('jadwal_kajian', ['tanggal' => $tanggal])->result();
-        // $this->db->where('tanggal', $tanggal);
         
         $no = 1; foreach ($data as $jk) : ?>
             <tr>
