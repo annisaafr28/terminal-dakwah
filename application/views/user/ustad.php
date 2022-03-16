@@ -62,20 +62,19 @@
                 <!-- End of Topbar -->
                 <div class="container-fluid">
                     <h1 class="h3 mb-4 text-gray-800 text-center">Selamat Datang Di Website Terminal Dakwah</h1>
-                    <h5 class="mb-4 text-gray-800 text-center">Cari Jadwal Dibawah Ini</h5>
+                    <h5 class="mb-4 text-gray-800 text-center">Cari Jadwal Ustad Dibawah Ini</h5>
 
                     <div class="container">
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <!-- <select name="tanggal_kajian" id="tanggal_kajian" class="form-control">
-                                <option value="">Show All</option>
-                                <?php foreach ($jadwal_kajian as $kj) : ?>
-                                    <option value="<?= $kj->tanggal ?>"><?= $kj->tanggal ?></option>
-                                <?php endforeach ?>
-                            </select> -->
-                                        <input type="date" id="tanggal_kajian" class="form-control">
+                                        <select name="" id="namaustad" class="form-control">
+                                            <option value="">Pilih Ustad</option>
+                                            <?php foreach ($ustad as $u) : ?>
+                                                <option value="<?= $u->id_ustad ?>"><?= $u->nama_ustad ?></option>
+                                            <?php endforeach ?>
+                                        </select>
                                     </td>
                                 </tr>
                             </table>
@@ -150,18 +149,18 @@
 
     <script>
         $(document).ready(function() {
-            $("#tanggal_kajian").change(function() {
+            $("#namaustad").change(function() {
                 // let a = $(this).val();
                 // console.log(a);
-                jadwal_kajian()
+                jadwal_kajian();
             })
         })
 
         function jadwal_kajian() {
-            var tanggal_kajian = $("#tanggal_kajian").val();
+            var namaustad = $("#namaustad").val();
             $.ajax({
-                url: "<?= base_url('Homepage/load_kajian') ?>",
-                data: "tanggal=" + tanggal_kajian,
+                url: "<?= base_url('ustad/load_ustad') ?>",
+                data: "id_ustad=" + namaustad,
                 success: function(data) {
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     // console.log(data);

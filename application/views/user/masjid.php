@@ -62,20 +62,19 @@
                 <!-- End of Topbar -->
                 <div class="container-fluid">
                     <h1 class="h3 mb-4 text-gray-800 text-center">Selamat Datang Di Website Terminal Dakwah</h1>
-                    <h5 class="mb-4 text-gray-800 text-center">Cari Jadwal Dibawah Ini</h5>
+                    <h5 class="mb-4 text-gray-800 text-center">Cari Jadwal Masjid Dibawah Ini</h5>
 
                     <div class="container">
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <!-- <select name="tanggal_kajian" id="tanggal_kajian" class="form-control">
-                                <option value="">Show All</option>
-                                <?php foreach ($jadwal_kajian as $kj) : ?>
-                                    <option value="<?= $kj->tanggal ?>"><?= $kj->tanggal ?></option>
-                                <?php endforeach ?>
-                            </select> -->
-                                        <input type="date" id="tanggal_kajian" class="form-control">
+                                        <select name="" id="idMasjid" class="form-control">
+                                            <option value="">Pilih Masjid</option>
+                                            <?php foreach ($masjid as $u) : ?>
+                                                <option value="<?= $u->id_masjid ?>"><?= $u->nama_masjid ?></option>
+                                            <?php endforeach ?>
+                                        </select>
                                     </td>
                                 </tr>
                             </table>
@@ -83,7 +82,11 @@
 
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h5 class="text-gray-800 text-center">Hasil Pencarian</h5>
+                                <h5 id="nameMasjid" class="text-gray-800 text-center">Hasil Pencarian</h5>
+                                <br>
+                                <div class="text-center">
+                                    <img style="display: none;" id="imgMasjid" src="http://localhost/codeigniter-cust-project/terminaldakwah/assets/foto/Gplay1.jpg" width="160px" height="120px">
+                                </div>
                             </div>
 
                             <div class="card-body">
@@ -150,22 +153,28 @@
 
     <script>
         $(document).ready(function() {
-            $("#tanggal_kajian").change(function() {
+            $("#idMasjid").change(function() {
                 // let a = $(this).val();
                 // console.log(a);
-                jadwal_kajian()
+                $("#nameMasjid").html("Hasil Pencarian");
+                $("#imgMasjid").fadeOut();
+                jadwal_masjid();
             })
         })
 
-        function jadwal_kajian() {
-            var tanggal_kajian = $("#tanggal_kajian").val();
+        function jadwal_masjid() {
+            var idMasjid = $("#idMasjid").val();
             $.ajax({
-                url: "<?= base_url('Homepage/load_kajian') ?>",
-                data: "tanggal=" + tanggal_kajian,
+                url: "<?= base_url('Homepage/load_masjid') ?>",
+                data: "id_masjid=" + idMasjid,
                 success: function(data) {
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
-                    // console.log(data);
                     $("#result_kajian tbody").html(data);
+                    if ($("#idMasjid").val()) {
+                        $("#imgMasjid").attr("src", $("#fotoMasjid").val());
+                        $("#imgMasjid").fadeIn();
+                        $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").html());
+                    }
                 }
             })
         }
