@@ -19,12 +19,14 @@ class Ustad extends CI_Controller
     public function load_ustad()
     {
         $ustad = $_GET['id_ustad'];
+        $bulan = $_GET['bulan'];
         $data = $this->db->select('*')
                          ->from('jadwal_kajian jk')
                          ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
                          ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
                          ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
                          ->where('jk.id_ustad', $ustad)
+                         ->where('jk.tanggal LIKE', $bulan."%")
                          ->get()->result();
         if(!$data){ ?>
             <tr>
@@ -35,13 +37,14 @@ class Ustad extends CI_Controller
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $jk->nama_masjid ?></td>
-                <td><?= $jk->nama_ustad ?></td>
+                <td id="nUstad"><?= $jk->nama_ustad ?></td>
                 <td><?= $jk->judul_kajian ?></td>
                 <td><?= $jk->tanggal ?></td>
                 <td><?= $jk->waktu ?></td>
                 <td><?= $jk->keterangan ?></td>
                 <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="60px"></td>
             </tr>
+            <input type="hidden" id="fotoUstad" value="<?= base_url('assets/foto/' . $jk->foto) ?>" >
             <?php }
         }
     }

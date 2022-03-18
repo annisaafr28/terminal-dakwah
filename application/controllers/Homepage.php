@@ -54,12 +54,14 @@ class Homepage extends CI_Controller
     public function load_masjid()
     {
         $id_masjid = $_GET['id_masjid'];
-        $data = $this->db->select('jk.*, u.nama_ustad, m.*, k.*')
+        $bulan = $_GET['bulan'];
+        $data = $this->db->select('jk.*, m.nama_masjid, u.*, k.*')
                          ->from('jadwal_kajian jk')
                          ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
                          ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
                          ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
                          ->where('jk.id_masjid', $id_masjid)
+                         ->where('jk.tanggal LIKE', $bulan."%")
                          ->get()->result();
         if(!$data){ ?>
             <tr>
