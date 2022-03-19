@@ -76,13 +76,20 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
+                                    <td>
+                                        <input type="month" id="bulan" class="form-control">
+                                    </td>
                                 </tr>
                             </table>
                         </div>
 
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h5 class="text-gray-800 text-center">Hasil Pencarian</h5>
+                                <h5 id="nameUstad" class="text-gray-800 text-center">Hasil Pencarian</h5>
+                                    <br>
+                                    <div class="text-center">
+                                        <img style="display: none;" id="imgUstad" src="" width="160px" height="120px">
+                                    </div>
                             </div>
 
                             <div class="card-body">
@@ -148,23 +155,41 @@
     <script src="<?= base_url('assets/template/') ?>js/demo/datatables-demo.js"></script>
 
     <script>
+        
         $(document).ready(function() {
             $("#namaustad").change(function() {
                 // let a = $(this).val();
                 // console.log(a);
-                jadwal_kajian();
+                $("#nameUstad").html("Hasil Pencarian");
+                $("#imgUstad").fadeOut();
+                if($("#namaustad").val() && $("#bulan").val() ){
+                    jadwal_kajian();
+                }
+            })
+            $("#bulan").change(function () {
+                $("#nameUstad").html("Hasil Pencarian");
+                $("#imgUstad").fadeOut();
+                if($("#namaustad").val() && $("#bulan").val() ){
+                    jadwal_kajian();
+                }
             })
         })
 
         function jadwal_kajian() {
             var namaustad = $("#namaustad").val();
+            var bulan = $("#bulan").val();
             $.ajax({
                 url: "<?= base_url('ustad/load_ustad') ?>",
-                data: "id_ustad=" + namaustad,
+                data: {"id_ustad" : namaustad, "bulan" : bulan},
                 success: function(data) {
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     // console.log(data);
                     $("#result_kajian tbody").html(data);
+                    if (namaustad && $("#fotoUstad").val()) {
+                        $("#imgUstad").attr("src", $("#fotoUstad").val());
+                        $("#imgUstad").fadeIn();
+                        $("#nameUstad").html("Hasil Pencarian Ustad " + $("#nUstad").html());
+                    }
                 }
             })
         }

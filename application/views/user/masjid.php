@@ -76,6 +76,9 @@
                                             <?php endforeach ?>
                                         </select>
                                     </td>
+                                    <td>
+                                        <input type="month" id="bulan" class="form-control">
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -85,7 +88,7 @@
                                 <h5 id="nameMasjid" class="text-gray-800 text-center">Hasil Pencarian</h5>
                                 <br>
                                 <div class="text-center">
-                                    <img style="display: none;" id="imgMasjid" src="http://localhost/codeigniter-cust-project/terminaldakwah/assets/foto/Gplay1.jpg" width="160px" height="120px">
+                                    <img style="display: none;" id="imgMasjid" src="" width="160px" height="120px">
                                 </div>
                             </div>
 
@@ -158,19 +161,29 @@
                 // console.log(a);
                 $("#nameMasjid").html("Hasil Pencarian");
                 $("#imgMasjid").fadeOut();
-                jadwal_masjid();
+                if($("#idMasjid").val() && $("#bulan").val() ){
+                    jadwal_masjid();
+                }
+            })
+            $("#bulan").change(function () {
+                $("#nameMasjid").html("Hasil Pencarian");
+                $("#imgMasjid").fadeOut();
+                if($("#idMasjid").val() && $("#bulan").val() ){
+                    jadwal_masjid();
+                }
             })
         })
 
         function jadwal_masjid() {
             var idMasjid = $("#idMasjid").val();
+            var bulan = $("#bulan").val();
             $.ajax({
                 url: "<?= base_url('Homepage/load_masjid') ?>",
-                data: "id_masjid=" + idMasjid,
+                data: {"id_masjid" : idMasjid, "bulan" : bulan},
                 success: function(data) {
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     $("#result_kajian tbody").html(data);
-                    if ($("#idMasjid").val()) {
+                    if ($("#idMasjid").val() && $("#fotoMasjid").val()) {
                         $("#imgMasjid").attr("src", $("#fotoMasjid").val());
                         $("#imgMasjid").fadeIn();
                         $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").html());
