@@ -8,6 +8,11 @@ class Masjid extends CI_Controller
     {
         parent::__construct();
         $this->load->model('inventory_model');
+
+        if ($this->session->userdata('role') != 'admin') {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Anda belum login!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('auth');
+        }
     }
 
     public function index()

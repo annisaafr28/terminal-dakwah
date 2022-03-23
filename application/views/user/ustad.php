@@ -88,7 +88,7 @@
                                 <h5 id="nameUstad" class="text-gray-800 text-center">Hasil Pencarian</h5>
                                     <br>
                                     <div class="text-center">
-                                        <img style="display: none;" id="imgUstad" src="" width="160px" height="120px">
+                                        <img style="display: none;" id="imgUstad" src="" width="160px" height="160px">
                                     </div>
                             </div>
 

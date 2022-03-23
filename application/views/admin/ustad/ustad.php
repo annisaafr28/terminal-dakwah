@@ -26,7 +26,7 @@
                             <td><?= $u->nama_ustad ?></td>
                             <td><?= $u->alamat_ustad ?></td>
                             <td><?= $u->no_hp ?></td>
-                            <td><img src="<?= base_url('assets/foto/' . $u->foto) ?>" width="80px" height="60px"></td>
+                            <td><img src="<?= base_url('assets/foto/' . $u->foto) ?>" width="80px" height="80px"></td>
                             <td>
                                 <a href="<?= base_url('admin/ustad/edit_data/' . $u->id_ustad) ?>" class="btn btn-circle btn-warning"><i class="fas fa-edit"></i></a>
                                 <a href="<?= base_url('admin/ustad/delete_data/' . $u->id_ustad) ?>" class="btn btn-circle btn-danger" onclick="return confirm('Apakah anda yakin mengahpus data ini?')"><i class="fas fa-trash"></i></a>

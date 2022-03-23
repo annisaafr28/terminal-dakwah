@@ -42,7 +42,7 @@ class Ustad extends CI_Controller
                 <td><?= $jk->tanggal ?></td>
                 <td><?= $jk->waktu ?></td>
                 <td><?= $jk->keterangan ?></td>
-                <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="60px"></td>
+                <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
             </tr>
             <input type="hidden" id="fotoUstad" value="<?= base_url('assets/foto/' . $jk->foto) ?>" >
             <?php }
