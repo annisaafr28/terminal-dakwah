@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 16 Feb 2022 pada 10.39
--- Versi server: 5.7.33
--- Versi PHP: 7.4.19
+-- Generation Time: Mar 26, 2022 at 04:04 AM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_kajian`
+-- Table structure for table `ci_sessions`
+--
+
+CREATE TABLE `ci_sessions` (
+  `id` varchar(150) NOT NULL,
+  `ip_address` varchar(50) NOT NULL,
+  `timestamp` int(11) NOT NULL,
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ci_sessions`
+--
+
+INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('na8v58s7u1h4qncjrvjl3sig6ummfbh1', '::1', 1648267395, 0x5f5f63695f6c6173745f726567656e65726174657c693a313634383236373134353b726f6c657c733a353a2261646d696e223b6e6f5f74656c707c733a31323a22303831373632353338373433223b656d61696c7c733a31363a22616e6e69736140676d61696c2e636f6d223b757365726e616d657c733a393a22616e6e697361313233223b666f746f7c4e3b);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_kajian`
 --
 
 CREATE TABLE `jadwal_kajian` (
@@ -38,10 +58,18 @@ CREATE TABLE `jadwal_kajian` (
   `flyer_kajian` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `jadwal_kajian`
+--
+
+INSERT INTO `jadwal_kajian` (`id_jadwal_kajian`, `id_masjid`, `id_ustad`, `id_kajian`, `tanggal`, `waktu`, `keterangan`, `flyer_kajian`) VALUES
+(1, 1, 1, 2, '2022-02-25', '12:00:00', 'Harap datang tepat waktu', 'masjid5.jpg'),
+(2, 1, 2, 1, '2022-03-04', '16:00:00', 'Harap datang tepat waktu', 'masjid6.jpg');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kajian`
+-- Table structure for table `kajian`
 --
 
 CREATE TABLE `kajian` (
@@ -50,7 +78,7 @@ CREATE TABLE `kajian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `kajian`
+-- Dumping data for table `kajian`
 --
 
 INSERT INTO `kajian` (`id_kajian`, `judul_kajian`) VALUES
@@ -62,7 +90,7 @@ INSERT INTO `kajian` (`id_kajian`, `judul_kajian`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `masjid`
+-- Table structure for table `masjid`
 --
 
 CREATE TABLE `masjid` (
@@ -73,10 +101,17 @@ CREATE TABLE `masjid` (
   `foto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `masjid`
+--
+
+INSERT INTO `masjid` (`id_masjid`, `nama_masjid`, `alamat`, `url_maps`, `foto`) VALUES
+(1, 'Baitul Masjid', 'Demak, Surabaya', 'map.com', 'masjid4.jpg');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -89,7 +124,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `no_telp`, `email`, `role`) VALUES
@@ -98,7 +133,7 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `no_telp`, `email`, `role
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ustad`
+-- Table structure for table `ustad`
 --
 
 CREATE TABLE `ustad` (
@@ -110,7 +145,7 @@ CREATE TABLE `ustad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `ustad`
+-- Dumping data for table `ustad`
 --
 
 INSERT INTO `ustad` (`id_ustad`, `nama_ustad`, `alamat_ustad`, `no_hp`, `foto`) VALUES
@@ -122,7 +157,7 @@ INSERT INTO `ustad` (`id_ustad`, `nama_ustad`, `alamat_ustad`, `no_hp`, `foto`) 
 --
 
 --
--- Indeks untuk tabel `jadwal_kajian`
+-- Indexes for table `jadwal_kajian`
 --
 ALTER TABLE `jadwal_kajian`
   ADD PRIMARY KEY (`id_jadwal_kajian`),
@@ -131,69 +166,69 @@ ALTER TABLE `jadwal_kajian`
   ADD KEY `kajian` (`id_kajian`);
 
 --
--- Indeks untuk tabel `kajian`
+-- Indexes for table `kajian`
 --
 ALTER TABLE `kajian`
   ADD PRIMARY KEY (`id_kajian`);
 
 --
--- Indeks untuk tabel `masjid`
+-- Indexes for table `masjid`
 --
 ALTER TABLE `masjid`
   ADD PRIMARY KEY (`id_masjid`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `ustad`
+-- Indexes for table `ustad`
 --
 ALTER TABLE `ustad`
   ADD PRIMARY KEY (`id_ustad`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_kajian`
+-- AUTO_INCREMENT for table `jadwal_kajian`
 --
 ALTER TABLE `jadwal_kajian`
-  MODIFY `id_jadwal_kajian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal_kajian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `kajian`
+-- AUTO_INCREMENT for table `kajian`
 --
 ALTER TABLE `kajian`
   MODIFY `id_kajian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `masjid`
+-- AUTO_INCREMENT for table `masjid`
 --
 ALTER TABLE `masjid`
-  MODIFY `id_masjid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_masjid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `ustad`
+-- AUTO_INCREMENT for table `ustad`
 --
 ALTER TABLE `ustad`
-  MODIFY `id_ustad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_ustad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `jadwal_kajian`
+-- Constraints for table `jadwal_kajian`
 --
 ALTER TABLE `jadwal_kajian`
   ADD CONSTRAINT `jadwal_kajian_ibfk_1` FOREIGN KEY (`id_kajian`) REFERENCES `kajian` (`id_kajian`),
