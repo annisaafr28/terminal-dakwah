@@ -20,7 +20,7 @@
 
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
 <body id="page-top">
@@ -98,11 +98,11 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th>#</th>
-                                                <th>Masjid</th>
                                                 <th>Ustad</th>
                                                 <th>Kajian</th>
                                                 <th>Tanggal</th>
                                                 <th>Waktu</th>
+                                                <th>URL Maps</th>
                                                 <th>Keterangan</th>
                                                 <th>Flyer Kajian</th>
                                             </tr>
@@ -153,7 +153,7 @@
 
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/template/') ?>js/demo/datatables-demo.js"></script>
-
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#idMasjid").change(function() {
@@ -161,14 +161,14 @@
                 // console.log(a);
                 $("#nameMasjid").html("Hasil Pencarian");
                 $("#imgMasjid").fadeOut();
-                if($("#idMasjid").val() && $("#bulan").val() ){
+                if ($("#idMasjid").val() && $("#bulan").val()) {
                     jadwal_masjid();
                 }
             })
-            $("#bulan").change(function () {
+            $("#bulan").change(function() {
                 $("#nameMasjid").html("Hasil Pencarian");
                 $("#imgMasjid").fadeOut();
-                if($("#idMasjid").val() && $("#bulan").val() ){
+                if ($("#idMasjid").val() && $("#bulan").val()) {
                     jadwal_masjid();
                 }
             })
@@ -179,17 +179,24 @@
             var bulan = $("#bulan").val();
             $.ajax({
                 url: "<?= base_url('Homepage/load_masjid') ?>",
-                data: {"id_masjid" : idMasjid, "bulan" : bulan},
+                data: {
+                    "id_masjid": idMasjid,
+                    "bulan": bulan
+                },
                 success: function(data) {
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     $("#result_kajian tbody").html(data);
                     if ($("#idMasjid").val() && $("#fotoMasjid").val()) {
                         $("#imgMasjid").attr("src", $("#fotoMasjid").val());
                         $("#imgMasjid").fadeIn();
-                        $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").html());
+                        $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").val());
                     }
-                }
+
+                    $(".table").dataTable();
+                },
             })
+            
+            $(".table").dataTable();
         }
     </script>
 

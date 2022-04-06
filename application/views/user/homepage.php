@@ -20,7 +20,7 @@
 
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
 <body id="page-top">
@@ -97,6 +97,7 @@
                                                 <th>Kajian</th>
                                                 <th>Tanggal</th>
                                                 <th>Waktu</th>
+                                                <th>URL Maps</th>
                                                 <th>Keterangan</th>
                                                 <th>Flyer Kajian</th>
                                             </tr>
@@ -147,7 +148,7 @@
 
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/template/') ?>js/demo/datatables-demo.js"></script>
-
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#tanggal_kajian").change(function() {
@@ -166,8 +167,10 @@
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     // console.log(data);
                     $("#result_kajian tbody").html(data);
+                    $(".table").dataTable();
                 }
             })
+            $(".table").dataTable();
         }
     </script>
 

@@ -21,6 +21,7 @@
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
 <body id="page-top">
@@ -86,10 +87,10 @@
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <h5 id="nameUstad" class="text-gray-800 text-center">Hasil Pencarian</h5>
-                                    <br>
-                                    <div class="text-center">
-                                        <img style="display: none;" id="imgUstad" src="" width="160px" height="160px">
-                                    </div>
+                                <br>
+                                <div class="text-center">
+                                    <img style="display: none;" id="imgUstad" src="" width="160px" height="160px">
+                                </div>
                             </div>
 
                             <div class="card-body">
@@ -99,10 +100,10 @@
                                             <tr class="text-center">
                                                 <th>#</th>
                                                 <th>Masjid</th>
-                                                <th>Ustad</th>
                                                 <th>Kajian</th>
                                                 <th>Tanggal</th>
                                                 <th>Waktu</th>
+                                                <th>URL Maps</th>
                                                 <th>Keterangan</th>
                                                 <th>Flyer Kajian</th>
                                             </tr>
@@ -153,23 +154,22 @@
 
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/template/') ?>js/demo/datatables-demo.js"></script>
-
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
-        
         $(document).ready(function() {
             $("#namaustad").change(function() {
                 // let a = $(this).val();
                 // console.log(a);
                 $("#nameUstad").html("Hasil Pencarian");
                 $("#imgUstad").fadeOut();
-                if($("#namaustad").val() && $("#bulan").val() ){
+                if ($("#namaustad").val() && $("#bulan").val()) {
                     jadwal_kajian();
                 }
             })
-            $("#bulan").change(function () {
+            $("#bulan").change(function() {
                 $("#nameUstad").html("Hasil Pencarian");
                 $("#imgUstad").fadeOut();
-                if($("#namaustad").val() && $("#bulan").val() ){
+                if ($("#namaustad").val() && $("#bulan").val()) {
                     jadwal_kajian();
                 }
             })
@@ -180,7 +180,10 @@
             var bulan = $("#bulan").val();
             $.ajax({
                 url: "<?= base_url('ustad/load_ustad') ?>",
-                data: {"id_ustad" : namaustad, "bulan" : bulan},
+                data: {
+                    "id_ustad": namaustad,
+                    "bulan": bulan
+                },
                 success: function(data) {
                     // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
                     // console.log(data);
@@ -188,10 +191,12 @@
                     if (namaustad && $("#fotoUstad").val()) {
                         $("#imgUstad").attr("src", $("#fotoUstad").val());
                         $("#imgUstad").fadeIn();
-                        $("#nameUstad").html("Hasil Pencarian Ustad " + $("#nUstad").html());
+                        $("#nameUstad").html("Hasil Pencarian Ustad " + $("#nUstad").val());
                     }
+                    $(".table").dataTable();
                 }
             })
+            $(".table").dataTable();
         }
     </script>
 
