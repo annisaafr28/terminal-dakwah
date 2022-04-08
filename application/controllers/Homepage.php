@@ -40,6 +40,7 @@ class Homepage extends CI_Controller
                     <td><?= $jk->judul_kajian ?></td>
                     <td><?= $jk->tanggal ?></td>
                     <td><?= $jk->waktu ?></td>
+                    <td><?= $jk->url_maps ?></td>
                     <td><?= $jk->keterangan ?></td>
                     <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
                 </tr>
@@ -55,7 +56,7 @@ class Homepage extends CI_Controller
     {
         $id_masjid = $_GET['id_masjid'];
         $bulan = $_GET['bulan'];
-        $data = $this->db->select('jk.*, m.nama_masjid, u.*, k.*')
+        $data = $this->db->select('jk.*, m.*, u.nama_ustad, k.*')
                          ->from('jadwal_kajian jk')
                          ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
                          ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
@@ -71,14 +72,15 @@ class Homepage extends CI_Controller
             $no = 1; foreach ($data as $jk) { ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td id="nMasjid"><?= $jk->nama_masjid ?></td>
                     <td><?= $jk->nama_ustad ?></td>
                     <td><?= $jk->judul_kajian ?></td>
                     <td><?= $jk->tanggal ?></td>
                     <td><?= $jk->waktu ?></td>
+                    <td><?= $jk->url_maps ?></td>
                     <td><?= $jk->keterangan ?></td>
                     <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
                 </tr>
+                <input type="hidden" id="nMasjid" value="<?= $jk->nama_masjid ?>">
                 <input type="hidden" id="fotoMasjid" value="<?= base_url('assets/foto/' . $jk->foto) ?>" >
             <?php }
         }

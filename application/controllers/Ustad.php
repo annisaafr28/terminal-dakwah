@@ -37,13 +37,14 @@ class Ustad extends CI_Controller
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $jk->nama_masjid ?></td>
-                <td id="nUstad"><?= $jk->nama_ustad ?></td>
                 <td><?= $jk->judul_kajian ?></td>
                 <td><?= $jk->tanggal ?></td>
                 <td><?= $jk->waktu ?></td>
+                <td><?= $jk->url_maps ?></td>
                 <td><?= $jk->keterangan ?></td>
                 <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
             </tr>
+            <input type="hidden" id="nUstad" value="<?= $jk->nama_ustad ?>">
             <input type="hidden" id="fotoUstad" value="<?= base_url('assets/foto/' . $jk->foto) ?>" >
             <?php }
         }

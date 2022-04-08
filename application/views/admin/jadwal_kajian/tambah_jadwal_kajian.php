@@ -8,7 +8,7 @@
         <form action="<?= base_url('admin/jadwal_kajian/tambah_aksi') ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nama Masjid</label>
-                <select name="id_masjid" class="form-control">
+                <select name="id_masjid" style="width: 100%;" class="form-control select2">
                     <option value="">-- Pilih Masjid --</option>
                     <?php foreach ($masjid as $m) : ?>
                         <option value="<?= $m->id_masjid ?>"><?= $m->nama_masjid ?></option>
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label>Nama Ustad</label>
-                <select name="id_ustad" class="form-control">
+                <select  name="id_ustad" style="width: 100%;" class="form-control select2">
                     <option value="">-- Pilih Ustad --</option>
                     <?php foreach ($ustad as $u) : ?>
                         <option value="<?= $u->id_ustad ?>"><?= $u->nama_ustad ?></option>
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>Kajian</label>
-                <select name="id_kajian" class="form-control">
+                <select name="id_kajian" style="width: 100%;" class="form-control select2">
                     <option value="">-- Pilih kajian --</option>
                     <?php foreach ($kajian as $k) : ?>
                         <option value="<?= $k->id_kajian ?>"><?= $k->judul_kajian ?></option>
