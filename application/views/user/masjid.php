@@ -21,6 +21,7 @@
     <!-- Custom styles for this page -->
     <link href="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 </head>
 
 <body id="page-top">
@@ -69,7 +70,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <select name="" id="idMasjid" class="form-control">
+                                        <select name="" style="width: 100%;" id="idMasjid" class="form-control select2">
                                             <option value="">Pilih Masjid</option>
                                             <?php foreach ($masjid as $u) : ?>
                                                 <option value="<?= $u->id_masjid ?>"><?= $u->nama_masjid ?></option>
@@ -90,6 +91,10 @@
                                 <div class="text-center">
                                     <img style="display: none;" id="imgMasjid" src="" width="160px" height="160px">
                                 </div>
+                                <br>
+                                <?php foreach ($masjid as $m) : ?>
+                                    <h5 id="alamat" class="text-gray-800 text-center"><input type="hidden" id="nAlamat" value="<?= $m->alamat ?>"></h5>
+                                <?php endforeach ?>
                             </div>
 
                             <div class="card-body">
@@ -164,6 +169,7 @@
                 if ($("#idMasjid").val() && $("#bulan").val()) {
                     jadwal_masjid();
                 }
+                $("#alamat").html();
             })
             $("#bulan").change(function() {
                 $("#nameMasjid").html("Hasil Pencarian");
@@ -171,6 +177,7 @@
                 if ($("#idMasjid").val() && $("#bulan").val()) {
                     jadwal_masjid();
                 }
+                $("#alamat").html();
             })
         })
 
@@ -190,14 +197,22 @@
                         $("#imgMasjid").attr("src", $("#fotoMasjid").val());
                         $("#imgMasjid").fadeIn();
                         $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").val());
+                        $("#alamat").html($("#nAlamat").val());
                     }
 
                     $(".table").dataTable();
                 },
             })
-            
+
             $(".table").dataTable();
         }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".select2").select2();
+        })
     </script>
 
 </body>

@@ -40,7 +40,6 @@ class Homepage extends CI_Controller
                     <td><?= $jk->judul_kajian ?></td>
                     <td><?= $jk->tanggal ?></td>
                     <td><?= $jk->waktu ?></td>
-                    <td><?= $jk->url_maps ?></td>
                     <td><?= $jk->keterangan ?></td>
                     <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
                 </tr>
@@ -76,7 +75,7 @@ class Homepage extends CI_Controller
                     <td><?= $jk->judul_kajian ?></td>
                     <td><?= $jk->tanggal ?></td>
                     <td><?= $jk->waktu ?></td>
-                    <td><?= $jk->url_maps ?></td>
+                    <td><?= $jk->alamat ?><br><a href="<?= $jk->url_maps ?>" target="_blank">(Klik maps)</a></td>
                     <td><?= $jk->keterangan ?></td>
                     <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
                 </tr>
