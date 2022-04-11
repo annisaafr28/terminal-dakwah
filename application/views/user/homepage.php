@@ -97,7 +97,6 @@
                                                 <th>Kajian</th>
                                                 <th>Tanggal</th>
                                                 <th>Waktu</th>
-                                                <th>URL Maps</th>
                                                 <th>Keterangan</th>
                                                 <th>Flyer Kajian</th>
                                             </tr>

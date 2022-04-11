@@ -22,6 +22,7 @@
     <link href="<?= base_url('assets/template/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 </head>
 
 <body id="page-top">
@@ -70,7 +71,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <select name="" id="namaustad" class="form-control">
+                                        <select name="" style="width: 100%;" id="namaustad" class="form-control select2">
                                             <option value="">Pilih Ustad</option>
                                             <?php foreach ($ustad as $u) : ?>
                                                 <option value="<?= $u->id_ustad ?>"><?= $u->nama_ustad ?></option>
@@ -198,6 +199,13 @@
             })
             $(".table").dataTable();
         }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".select2").select2();
+        })
     </script>
 
 </body>
