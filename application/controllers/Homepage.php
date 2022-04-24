@@ -21,18 +21,19 @@ class Homepage extends CI_Controller
     {
         $tanggal = $_GET['tanggal'];
         $data = $this->db->select('*')
-                         ->from('jadwal_kajian jk')
-                         ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
-                         ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
-                         ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
-                         ->where('tanggal', $tanggal)
-                         ->get()->result();
-        if(!$data){ ?>
+            ->from('jadwal_kajian jk')
+            ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
+            ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
+            ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
+            ->where('tanggal', $tanggal)
+            ->get()->result();
+        if (!$data) { ?>
             <tr>
-                    <td colspan="8" class="text-center">Data Kosong</td>
+                <td colspan="8" class="text-center">Data Kosong</td>
             </tr>
-        <?php }else{
-            $no = 1; foreach ($data as $jk) { ?>
+            <?php } else {
+            $no = 1;
+            foreach ($data as $jk) { ?>
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $jk->nama_masjid ?></td>
@@ -51,38 +52,56 @@ class Homepage extends CI_Controller
         $data['masjid'] = $this->inventory_model->get_data('masjid')->result();
         $this->load->view('user/masjid', $data);
     }
-    public function load_masjid()
+    public function load_masjid1()
     {
         $id_masjid = $_GET['id_masjid'];
         $bulan = $_GET['bulan'];
         $data = $this->db->select('jk.*, m.*, u.nama_ustad, k.*')
-                         ->from('jadwal_kajian jk')
-                         ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
-                         ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
-                         ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
-                         ->where('jk.id_masjid', $id_masjid)
-                         ->where('jk.tanggal LIKE', $bulan."%")
-                         ->get()->result();
-        if(!$data){ ?>
+            ->from('jadwal_kajian jk')
+            ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
+            ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
+            ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
+            ->where('jk.id_masjid', $id_masjid)
+            ->where('jk.tanggal LIKE', $bulan . "%")
+            ->get()->result();
+        if (!$data) { ?>
             <tr>
-                    <td colspan="8" class="text-center">Data Kosong</td>
+                <td colspan="8" class="text-center">Data Kosong</td>
             </tr>
-        <?php }else{
-            $no = 1; foreach ($data as $jk) { ?>
+            <?php } else {
+            $no = 1;
+            foreach ($data as $jk) { ?>
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $jk->nama_ustad ?></td>
                     <td><?= $jk->judul_kajian ?></td>
                     <td><?= $jk->tanggal ?></td>
                     <td><?= $jk->waktu ?></td>
-                    <td><?= $jk->alamat ?><br><a href="<?= $jk->url_maps ?>" target="_blank">(Klik maps)</a></td>
+                    <td><?= $jk->alamat ?><br><a href="<?php echo $jk->url_maps ?>" target="_blank">(Klik maps)</a></td>
                     <td><?= $jk->keterangan ?></td>
                     <td><img src="<?= base_url('assets/foto/' . $jk->flyer_kajian) ?>" width="80px" height="80px"></td>
                 </tr>
                 <input type="hidden" id="nMasjid" value="<?= $jk->nama_masjid ?>">
-                <input type="hidden" id="fotoMasjid" value="<?= base_url('assets/foto/' . $jk->foto) ?>" >
+                <input type="hidden" id="aMasjid" value="<?= $jk->alamat ?>">
+                <input type="hidden" id="urlMasjid" value="<?= $jk->url_maps ?>">
+                <input type="hidden" id="fotoMasjid" value="<?= base_url('assets/foto/' . $jk->foto) ?>">
             <?php }
         }
+    }
+    public function load_masjid()
+    {
+        $id_masjid = $_GET['id_masjid'];
+        $bulan = $_GET['bulan'];
+        $data = $this->db->select('jk.*, m.*, u.nama_ustad, k.*')
+            ->from('jadwal_kajian jk')
+            ->join('masjid m', 'jk.id_masjid = m.id_masjid', 'left')
+            ->join('ustad u', 'jk.id_ustad = u.id_ustad', 'left')
+            ->join('kajian k', 'jk.id_kajian = k.id_kajian', 'left')
+            ->where('jk.id_masjid', $id_masjid)
+            ->where('jk.tanggal LIKE', $bulan . "%")
+            ->get()->result();
+        
+        echo json_encode($data);
     }
 }
 

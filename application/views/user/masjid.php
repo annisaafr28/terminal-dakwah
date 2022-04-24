@@ -66,22 +66,18 @@
                     <h5 class="mb-4 text-gray-800 text-center">Cari Jadwal Masjid Dibawah Ini</h5>
 
                     <div class="container">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <select name="" style="width: 100%;" id="idMasjid" class="form-control select2">
-                                            <option value="">Pilih Masjid</option>
-                                            <?php foreach ($masjid as $u) : ?>
-                                                <option value="<?= $u->id_masjid ?>"><?= $u->nama_masjid ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="month" id="bulan" class="form-control">
-                                    </td>
-                                </tr>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select name="" style="width: 100%;" id="idMasjid" class="form-control select2">
+                                    <option value="">Pilih Masjid</option>
+                                    <?php foreach ($masjid as $u) : ?>
+                                        <option value="<?= $u->id_masjid ?>"><?= $u->nama_masjid ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="month" id="bulan" class="form-control mb-3">
+                            </div>
                         </div>
 
                         <div class="card shadow mb-4">
@@ -92,13 +88,14 @@
                                     <img style="display: none;" id="imgMasjid" src="" width="160px" height="160px">
                                 </div>
                                 <br>
-                                <?php foreach ($masjid as $m) : ?>
-                                    <h5 id="alamat" class="text-gray-800 text-center"><input type="hidden" id="nAlamat" value="<?= $m->alamat ?>"></h5>
-                                <?php endforeach ?>
+                                <h5 style="display: none;" id="alamat" class="text-gray-800 text-center"></h5>
+                                <div class="text-center">
+                                    <a style="display: none;" id="umap" href="" target="_blank">(Klik maps)</a>
+                                </div>
                             </div>
 
                             <div class="card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive" id="allo">
                                     <table class="table table-bordered" id="result_kajian" width="100%" cellspacing="0">
                                         <thead>
                                             <tr class="text-center">
@@ -112,7 +109,7 @@
                                                 <th>Flyer Kajian</th>
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody id="tbody"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -161,51 +158,80 @@
     <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
+            //table = $('#result_kajian').DataTable();
             $("#idMasjid").change(function() {
-                // let a = $(this).val();
-                // console.log(a);
                 $("#nameMasjid").html("Hasil Pencarian");
                 $("#imgMasjid").fadeOut();
+                $("#umap").fadeOut();
+                $("#alamat").fadeOut();
                 if ($("#idMasjid").val() && $("#bulan").val()) {
                     jadwal_masjid();
                 }
-                $("#alamat").html();
             })
             $("#bulan").change(function() {
                 $("#nameMasjid").html("Hasil Pencarian");
                 $("#imgMasjid").fadeOut();
+                $("#umap").fadeOut();
+                $("#alamat").fadeOut();
                 if ($("#idMasjid").val() && $("#bulan").val()) {
                     jadwal_masjid();
                 }
-                $("#alamat").html();
             })
+
+            function jadwal_masjid() {
+                var idMasjid = $("#idMasjid").val();
+                var bulan = $("#bulan").val();
+                $.ajax({
+                    url: "<?= base_url('Homepage/load_masjid') ?>",
+                    data: {
+                        "id_masjid": idMasjid,
+                        "bulan": bulan
+                    },
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+                        // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
+                        // $("#result_kajian tbody").html(data);
+                        // if ($("#idMasjid").val() && $("#fotoMasjid").val()) {
+                        //     $("#imgMasjid").attr("src", $("#fotoMasjid").val());
+                        //     $("#imgMasjid").fadeIn();
+                        //     $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").val());
+                        //     $("#alamat").html($("#aMasjid").val());
+                        //     $("#alamat").fadeIn();
+                        //     $("#umap").attr("href", $("#urlMasjid").val());
+                        //     $("#umap").fadeIn();
+                        // }
+                        var html = '';
+                        var i, u = 0;
+                        var baseurl = '<?php echo base_url('assets/foto/') ?>';
+                        for (i = 0; i < data.length; i++) {
+                            u++;
+                            html += '<tr>' +
+                                '<td>' + u + '</td>' +
+                                '<td>' + data[i].nama_ustad + '</td>' +
+                                '<td>' + data[i].judul_kajian + '</td>' +
+                                '<td>' + data[i].tanggal + '</td>' +
+                                '<td>' + data[i].waktu + '</td>' +
+                                '<td>' + data[i].alamat + '</br><a href="' + data[i].url_maps + '" target="_blank">(Klik maps)</a></td>' +
+                                '<td>' + data[i].keterangan + '</td>' +
+                                '<td><img src="' + baseurl + data[i].flyer_kajian + '" width="80px" height="80px"></td>' +
+                                '</tr>';
+                        }
+                        $('#tbody').html(html);
+                        if ($("#idMasjid").val()) {
+                            $("#imgMasjid").attr("src", baseurl + data[0].foto);
+                            $("#imgMasjid").fadeIn();
+                            $("#nameMasjid").html("Hasil Pencarian Masjid " + data[0].nama_masjid);
+                            $("#alamat").html( data[0].alamat);
+                            $("#alamat").fadeIn();
+                            $("#umap").attr("href", data[0].url_maps);
+                            $("#umap").fadeIn();
+                        }
+                    },
+                });
+
+            }
         })
-
-        function jadwal_masjid() {
-            var idMasjid = $("#idMasjid").val();
-            var bulan = $("#bulan").val();
-            $.ajax({
-                url: "<?= base_url('Homepage/load_masjid') ?>",
-                data: {
-                    "id_masjid": idMasjid,
-                    "bulan": bulan
-                },
-                success: function(data) {
-                    // $("#result_kajian tbody").html('<tr><td colspan="8" align="center">Tidak ada data</td></tr>')
-                    $("#result_kajian tbody").html(data);
-                    if ($("#idMasjid").val() && $("#fotoMasjid").val()) {
-                        $("#imgMasjid").attr("src", $("#fotoMasjid").val());
-                        $("#imgMasjid").fadeIn();
-                        $("#nameMasjid").html("Hasil Pencarian Masjid " + $("#nMasjid").val());
-                        $("#alamat").html($("#nAlamat").val());
-                    }
-
-                    $(".table").dataTable();
-                },
-            })
-
-            $(".table").dataTable();
-        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
